@@ -7,19 +7,51 @@
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
   <link rel="stylesheet" href="quiCSS.css">
 </head>
-
 <body>
     <header class="header">
-        <h1>Are you a Critter?</h1>
-        </header> 
-    <div class="quizlet"> 
-        <form id="quizQuestion">
-        </form>
-    </div>
-</body>  
+      <h1>Are you a Critter?</h1>
+      </header> 
+  <!--Here is some start page HTML block-->
+    <section class="info-page"> 
+      <p>Here's some information about my quiz. You should take it.</p>   
+      <form id = "start-quiz">
+        <p>Are you ready?</p>
+          <button type="button" id="quiz-start-button">Let's get started!</button>
+          <button type="button" id=quiz-start-buttonFalse" onclick="alert('Roll with advantage - click the other button!')">I failed my wisdom save</button>
+      </form>
+    </section>  
+  <!--Here is the question HTML block-->   
+    <section class="question-page"> 
+      <form id="quizQuestion">
+        <ul id="exampleQuestion">
+          <li>An answer</li>
+          <li>Another answer</li>
+          <li>Yet another answer</li>
+          <li>The final answer</li>
+        </ul>
+      </form>
+    </section>
+  <!--Here is the feedback HTML block--> 
+    <section class="rightorWrong"> 
+      <form id="rightOrWrongResults">
+          <p class="correctAnswer">You did it right!</p>
+          <p class="incorrectAnswer">You did it wrong! You should have done the other thing!</p>
+          <button type="button">Continue</button>   
+      </form>
+    </section>
+</body> 
+  <!--Here is the final results HTML block-->
+    <h2>Quiz Results</h2>
+      <section class="finalResults">
+        <p>Congratulations, based on some stuff, you answered the things in a way.</p>
+        <form id="quizResults">
+            <button type="button">Continue</button> 
+            <button type="button">Play again!</button>  
+      </section>
+<!-- No JS yet, because wireframe
 <script
   src="https://code.jquery.com/jquery-3.4.1.min.js"
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
-<script type="text/javascript" src="quizJS.js"></script> 
+<script type="text/javascript" src="quizJS.js"></script> --> 
 </html>

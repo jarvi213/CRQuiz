@@ -1,6 +1,6 @@
 'use strict';
 //an array with all questions
-const STORE = [
+const QUESTIONS = [
     {question: "How many episodes were in Critical Role's first campaign?", 
      choices: ["56", "88", "102", "138"], 
      answer: 2},
@@ -39,17 +39,17 @@ function generateItemElement(item, itemIndex, template) {
       <input type="radio">${item.choices[2]}<br>
       <input type="radio">${item.choices[3]}`;
   }
-//grab the info out of STORE...
+//grab the info out of QUESTIONS...
 function generateQuizTemplate(quizTemplate) {
     console.log('`generateQuizTemplate` ran');
     const items = quizTemplate.map((item, index) => generateItemElement(item, index));
   
   return items.join("");
 }
-//Get the info we've stored to render...
+//Get the info we've QUESTIONSd to render...
 function renderQuiz() {
     console.log('`renderQuiz` ran');
-    const testQuestion = generateQuizTemplate(STORE);
+    const testQuestion = generateQuizTemplate(QUESTIONS);
 //insert the question into the DOM...   
     $("#quizQuestion").html(testQuestion);
 };
