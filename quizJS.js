@@ -29,9 +29,48 @@ const QUESTIONS = [
      choices: ["Liam's and Laura's", "Ashley's and Travis's", "Marisha's and Sam's", "Ashley's and Taleisin's"], 
      answer: 3}, 
   ];
-//function(s) to handle rendering the questions
+//an array with all of the states we want to track in the quiz
+const STORE = [
+    {currentQuestion: []},
+    {numberCorrect: []},
+    {numberIncorrect: []},
+    {currentView: []},
+    {currentAnswer: []}
+];
+//functions to manage which parts display
+function determineView(currentView) {
+  switch (currentView) {
+    case "startView":
+      $(".info-page").show();
+      $(".question-page").hide();
+      $(".rightOrWrong").hide();
+      $(".finalResults").hide();
+      break;
+    case "questionView":
+      $(".info-page").hide();
+      $(".question-page").show();
+      $(".rightOrWrong").hide();
+      $(".finalResults").hide();
+      break;
+    case "feedbackView":
+      $(".info-page").hide();
+      $(".question-page").hide();
+      $(".rightOrWrong").show();
+      $(".finalResults").hide();
+      break;
+    case "resultsView":
+      $(".info-page").hide();
+      $(".question-page").hide();
+      $(".rightOrWrong").hide();
+      $(".finalResults").show(); 
+    default: "startView"      
+  };
+};
+function manageView() {
+};
+//functions to handle rendering the questions
 //Create the template...
-function generateItemElement(item, itemIndex, template) {
+function generateItemElement(item) {
     return `
       <h2>${item.question}</h2>
       <input type="radio">${item.choices[0]}<br>
@@ -46,7 +85,7 @@ function generateQuizTemplate(quizTemplate) {
   
   return items.join("");
 }
-//Get the info we've QUESTIONSd to render...
+//Get the info from QUESTIONS to render...
 function renderQuiz() {
     console.log('`renderQuiz` ran');
     const testQuestion = generateQuizTemplate(QUESTIONS);
