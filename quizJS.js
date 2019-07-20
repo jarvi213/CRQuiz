@@ -30,37 +30,28 @@ const QUESTIONS = [
      answer: 3}, 
   ];
 //an array with all of the states we want to track in the quiz
-const STORE = [
-    {currentQuestion: []},
-    {numberCorrect: []},
-    {numberIncorrect: []},
-    {currentView: []},
-    {currentAnswer: []}
-];
+const STORE = 
+    {currentQuestion: [],
+     numberCorrect: 0,
+     numberIncorrect: 0,
+     currentView: "startView",
+     currentAnswer: []};
 //functions to manage which parts display
-function manageView(currentView) {
-    if (currentView === "startView") {
+function manageView() {
+  //hide all as default and then show what needs to be shown
+      $(".info-page").hide();
+      $(".question-page").hide();
+      $(".rightOrWrong").hide();
+      $(".finalResults").hide();
+  //update the view based on the currentView in the STORE    
+    if (STORE.currentView === "startView") {
       $(".info-page").show();
-      $(".question-page").hide();
-      $(".rightOrWrong").hide();
-      $(".finalResults").hide();
-    } else if (currentView === "questionView") {
-      $(".info-page").hide();
+    } else if (STORE.currentView === "questionView") {
       $(".question-page").show();
-      $(".rightOrWrong").hide();
-      $(".finalResults").hide();
-    } else if (currentView === "feedbackView") {
-      $(".info-page").hide();
-      $(".question-page").hide();
+    } else if (STORE.currentView === "feedbackView") {
       $(".rightOrWrong").show();
-      $(".finalResults").hide();
-    } else if (currentView === "resultsView") {
-      $(".info-page").hide();
-      $(".question-page").hide();
-      $(".rightOrWrong").hide();
+    } else if (STORE.currentView === "resultsView") {
       $(".finalResults").show();     
-    } else {
-      (STORE.currentView.prop("startView"));
     };
 };
 //functions to handle rendering the questions
@@ -90,6 +81,7 @@ function renderQuiz() {
 };
 function runQuiz() {
     renderQuiz();
+    manageView("startView");
 };
 
 $(runQuiz);
