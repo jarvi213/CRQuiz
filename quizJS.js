@@ -31,7 +31,7 @@ const QUESTIONS = [
   ];
 //an array with all of the states we want to track in the quiz
 const STORE = 
-    {currentQuestion: [],
+    {currentQuestion: 0,
      numberCorrect: 0,
      numberIncorrect: 0,
      currentView: "startView",
@@ -52,10 +52,35 @@ function manageView() {
       $(".rightOrWrong").show();
     } else if (STORE.currentView === "resultsView") {
       $(".finalResults").show();     
-    };
+    };  
 };
+//updates which view should be displayed based on user action
+$("#start-quiz").on('submit', function(event) {
+  event.preventDefault();
+  STORE.currentView = "questionView";
+  manageView();
+});
+$("#quizQuestion").on('submit', function(event) {
+  event.preventDefault();
+  STORE.currentView = "feedbackView";
+  manageView();
+});
+$("#rightOrWrongResults").on('click', function(event) {
+  event.preventDefault();
+  if (STORE.currentQuestion === 9) {
+    STORE.currentView = "resultsView";
+    manageView();
+  } else if (STORE.currentQuestion < 9) {
+    STORE.currentView = "questionView";
+    manageView();
+  };
+});
+$("#quizResults").on('click', function(event) {
+  STORE.currentView = "startView";
+  manageView();
+});
 //functions to handle rendering the questions
-//Create the template...
+//Creates the template
 function generateItemElement(item) {
     return `
       <h2>${item.question}</h2>
@@ -63,25 +88,25 @@ function generateItemElement(item) {
       <input type="radio" name="questionChoice" value="B">${item.choices[1]}<br>
       <input type="radio" name="questionChoice" value="C">${item.choices[2]}<br>
       <input type="radio" name="questionChoice" value="D">${item.choices[3]}<br>
-      <button type="button" id="quiz-submit-button">Submit</button>`;
+      <input type="submit" id="quiz-submit-button"></input>`;
   }
-//grab the info out of QUESTIONS...
+//grabs the info out of QUESTIONS
 function generateQuizTemplate(quizTemplate) {
     console.log('`generateQuizTemplate` ran');
     const items = quizTemplate.map((item, index) => generateItemElement(item, index));
   
   return items.join("");
 }
-//Get the info from QUESTIONS to render...
+//Gets the info from QUESTIONS to render
 function renderQuiz() {
     console.log('`renderQuiz` ran');
     const testQuestion = generateQuizTemplate(QUESTIONS);
-//insert the question into the DOM...   
+//inserts the question into the DOM 
     $("#quizQuestion").html(testQuestion);
 };
 function runQuiz() {
     renderQuiz();
-    manageView("startView");
+    manageView();
 };
 
 $(runQuiz);
