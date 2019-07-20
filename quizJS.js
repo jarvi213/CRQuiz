@@ -38,45 +38,41 @@ const STORE = [
     {currentAnswer: []}
 ];
 //functions to manage which parts display
-function determineView(currentView) {
-  switch (currentView) {
-    case "startView":
+function manageView(currentView) {
+    if (currentView === "startView") {
       $(".info-page").show();
       $(".question-page").hide();
       $(".rightOrWrong").hide();
       $(".finalResults").hide();
-      break;
-    case "questionView":
+    } else if (currentView === "questionView") {
       $(".info-page").hide();
       $(".question-page").show();
       $(".rightOrWrong").hide();
       $(".finalResults").hide();
-      break;
-    case "feedbackView":
+    } else if (currentView === "feedbackView") {
       $(".info-page").hide();
       $(".question-page").hide();
       $(".rightOrWrong").show();
       $(".finalResults").hide();
-      break;
-    case "resultsView":
+    } else if (currentView === "resultsView") {
       $(".info-page").hide();
       $(".question-page").hide();
       $(".rightOrWrong").hide();
-      $(".finalResults").show(); 
-    default: "startView"      
-  };
-};
-function manageView() {
+      $(".finalResults").show();     
+    } else {
+      (STORE.currentView.prop("startView"));
+    };
 };
 //functions to handle rendering the questions
 //Create the template...
 function generateItemElement(item) {
     return `
       <h2>${item.question}</h2>
-      <input type="radio">${item.choices[0]}<br>
-      <input type="radio">${item.choices[1]}<br>
-      <input type="radio">${item.choices[2]}<br>
-      <input type="radio">${item.choices[3]}`;
+      <input type="radio" name="questionChoice" value="A">${item.choices[0]}<br>
+      <input type="radio" name="questionChoice" value="B">${item.choices[1]}<br>
+      <input type="radio" name="questionChoice" value="C">${item.choices[2]}<br>
+      <input type="radio" name="questionChoice" value="D">${item.choices[3]}<br>
+      <button type="button" id="quiz-submit-button">Submit</button>`;
   }
 //grab the info out of QUESTIONS...
 function generateQuizTemplate(quizTemplate) {
