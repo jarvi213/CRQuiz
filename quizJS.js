@@ -30,12 +30,13 @@ const QUESTIONS = [
      answer: 3}, 
   ];
 //an array with all of the states we want to track in the quiz
-const STORE = 
-    {currentQuestion: 0,
-     numberCorrect: 0,
-     numberIncorrect: 0,
-     currentView: "startView",
-     currentAnswer: []};
+const STORE = {
+    currentQuestion: 0,
+    numberCorrect: 0,
+    numberIncorrect: 0,
+    currentView: "startView",
+    currentAnswer: ""
+  };
 //functions to manage which parts display
 function manageView() {
   //hide all as default and then show what needs to be shown
@@ -66,11 +67,10 @@ $("#quizQuestion").on('submit', function(event) {
   manageView();
 });
 $("#rightOrWrongResults").on('click', function(event) {
-  event.preventDefault();
   if (STORE.currentQuestion === 9) {
     STORE.currentView = "resultsView";
     manageView();
-  } else if (STORE.currentQuestion < 9) {
+  } else {
     STORE.currentView = "questionView";
     manageView();
   };
@@ -79,6 +79,14 @@ $("#quizResults").on('click', function(event) {
   STORE.currentView = "startView";
   manageView();
 });
+
+
+function justOneQuestion() {
+  let shownQuestion = generateItemElement(QUESTIONS[STORE.currentQuestion]);
+  $("#quizQuestion").html(shownQuestion);
+}
+
+
 //functions to handle rendering the questions
 //Creates the template
 function generateItemElement(item) {
@@ -91,16 +99,17 @@ function generateItemElement(item) {
       <input type="submit" id="quiz-submit-button"></input>`;
   }
 //grabs the info out of QUESTIONS
-function generateQuizTemplate(quizTemplate) {
-    console.log('`generateQuizTemplate` ran');
-    const items = quizTemplate.map((item, index) => generateItemElement(item, index));
+function generateQuizQuestions(questions) {
+    console.log('`generateQuizQuestions` ran');
+    const items = questions.map((item, index) => generateItemElement(item, index));
   
   return items.join("");
 }
 //Gets the info from QUESTIONS to render
 function renderQuiz() {
     console.log('`renderQuiz` ran');
-    const testQuestion = generateQuizTemplate(QUESTIONS);
+    const testQuestion = justOneQuestion();
+
 //inserts the question into the DOM 
     $("#quizQuestion").html(testQuestion);
 };
