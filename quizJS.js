@@ -79,12 +79,18 @@ $("#quizResults").on('click', function(event) {
   STORE.currentView = "startView";
   manageView();
 });
-
-
+//updates which question is shown based on the state of STORE
 function justOneQuestion() {
   let shownQuestion = generateItemElement(QUESTIONS[STORE.currentQuestion]);
   $("#quizQuestion").html(shownQuestion);
-}
+};
+//updates the STORE for currentQuestion based on user completing question
+$('#quizQuestion').on('submit', function(event) {
+  event.preventDefault();
+  STORE.currentQuestion++;
+  renderQuiz();
+});
+
 
 
 //functions to handle rendering the questions
@@ -92,10 +98,10 @@ function justOneQuestion() {
 function generateItemElement(item) {
     return `
       <h2>${item.question}</h2>
-      <input type="radio" name="questionChoice" value="A">${item.choices[0]}<br>
-      <input type="radio" name="questionChoice" value="B">${item.choices[1]}<br>
-      <input type="radio" name="questionChoice" value="C">${item.choices[2]}<br>
-      <input type="radio" name="questionChoice" value="D">${item.choices[3]}<br>
+      <input type="radio" name="questionChoice" value=0 required>${item.choices[0]}<br>
+      <input type="radio" name="questionChoice" value=1 required>${item.choices[1]}<br>
+      <input type="radio" name="questionChoice" value=2 required>${item.choices[2]}<br>
+      <input type="radio" name="questionChoice" value=3 required>${item.choices[3]}<br>
       <input type="submit" id="quiz-submit-button"></input>`;
   }
 //grabs the info out of QUESTIONS
