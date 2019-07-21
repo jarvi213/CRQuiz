@@ -91,7 +91,16 @@ $('#quizQuestion').on('submit', function(event) {
   renderQuiz();
 });
 
-
+//determines whether answer given is right or wrong
+$('input').on('click', function(event) {
+  STORE.currentAnswer = $("input:checked").val();
+})
+function determineRight() {
+  let rightAnswer = QUESTIONS[STORE.currentQuestion].answer;
+  if (rightAnswer == STORE.currentAnswer) {
+    $('.incorrectAnswer').hide();
+  };
+};
 
 //functions to handle rendering the questions
 //Creates the template
@@ -122,6 +131,7 @@ function renderQuiz() {
 function runQuiz() {
     renderQuiz();
     manageView();
+    determineRight();
 };
 
 $(runQuiz);
