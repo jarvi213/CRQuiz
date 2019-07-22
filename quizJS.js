@@ -81,7 +81,7 @@ $("#quizResults").on('click', function(event) {
 });
 //updates which question is shown based on the state of STORE
 function justOneQuestion() {
-  let shownQuestion = generateItemElement(QUESTIONS[STORE.currentQuestion]);
+  let shownQuestion = generateQuizQuestionElement(QUESTIONS[STORE.currentQuestion]);
   $("#quizQuestion").html(shownQuestion);
 };
 //updates the STORE based on user completing question
@@ -98,27 +98,32 @@ function processAnswer() {
   let rightAnswer = QUESTIONS[STORE.currentQuestion - 1].answer;
   console.log(rightAnswer);
   if (rightAnswer == STORE.currentAnswer) {
+    STORE.numberCorrect++;
     $('.incorrectAnswer').hide();
   } else {
+    STORE.numberIncorrect++;
     $('.correctAnswer').hide();
-  }
+    $('.incorrectAnswer').show();
+  };
 };
 
-//functions to handle rendering the questions
+//functions to handle rendering from STORE for questions
 //Creates the template
-function generateItemElement(item) {
+function generateQuizQuestionElement(item) {
     return `
       <h2>${item.question}</h2>
       <input type="radio" name="questionChoice" value=0 required>${item.choices[0]}<br>
       <input type="radio" name="questionChoice" value=1 required>${item.choices[1]}<br>
       <input type="radio" name="questionChoice" value=2 required>${item.choices[2]}<br>
       <input type="radio" name="questionChoice" value=3 required>${item.choices[3]}<br>
-      <input type="submit" id="quiz-submit-button"></input>`;
+      <input type="submit" id="quiz-submit-button"></input><br>
+      <p id="quiz-status">${STORE.currentQuestion} out of 10 answered.</p>
+      <p id="quiz-totals">${STORE.numberCorrect} right, ${STORE.numberIncorrect} wrong<p>`
   }
 //grabs the info out of QUESTIONS
 function generateQuizQuestions(questions) {
     console.log('`generateQuizQuestions` ran');
-    const items = questions.map((item, index) => generateItemElement(item, index));
+    const items = questions.map((item, index) => generateQuizQuestionElement(item, index));
   
   return items.join("");
 }
