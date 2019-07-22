@@ -88,15 +88,14 @@ function justOneQuestion() {
 $('#quizQuestion').on('submit', function(event) {
   event.preventDefault();
   STORE.currentQuestion++;
+  processAnswer();
   renderQuiz();
 });
-
-//determines whether answer given is right or wrong
-$('input').on('click', function(event) {
-  STORE.currentAnswer = $("input:checked").val();
-})
-function determineRight() {
+function processAnswer() {
+  STORE.currentAnswer = ($('input:checked').val());
+  console.log(STORE.currentAnswer);
   let rightAnswer = QUESTIONS[STORE.currentQuestion].answer;
+  console.log(rightAnswer);
   if (rightAnswer == STORE.currentAnswer) {
     $('.incorrectAnswer').hide();
   };
@@ -131,7 +130,6 @@ function renderQuiz() {
 function runQuiz() {
     renderQuiz();
     manageView();
-    determineRight();
 };
 
 $(runQuiz);
