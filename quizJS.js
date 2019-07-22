@@ -84,21 +84,24 @@ function justOneQuestion() {
   let shownQuestion = generateItemElement(QUESTIONS[STORE.currentQuestion]);
   $("#quizQuestion").html(shownQuestion);
 };
-//updates the STORE for currentQuestion based on user completing question
+//updates the STORE based on user completing question
 $('#quizQuestion').on('submit', function(event) {
   event.preventDefault();
   STORE.currentQuestion++;
   processAnswer();
   renderQuiz();
 });
+//determines whether answer is right or wrong
 function processAnswer() {
   STORE.currentAnswer = ($('input:checked').val());
   console.log(STORE.currentAnswer);
-  let rightAnswer = QUESTIONS[STORE.currentQuestion].answer;
+  let rightAnswer = QUESTIONS[STORE.currentQuestion - 1].answer;
   console.log(rightAnswer);
   if (rightAnswer == STORE.currentAnswer) {
     $('.incorrectAnswer').hide();
-  };
+  } else {
+    $('.correctAnswer').hide();
+  }
 };
 
 //functions to handle rendering the questions
