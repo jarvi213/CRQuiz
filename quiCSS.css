@@ -1,6 +1,11 @@
 * {
   box-sizing: border-box;
-  padding: 10px;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
 }
 h2 {
     border: 1px solid black;
@@ -9,8 +14,19 @@ h2 {
 header {
     border: 1px solid black;
     background-color: #c1dbf7;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: fixed;
+    width: 100vw;
 }
-section {
+.quizBody {
     border: 1px solid black;
     background-color: #bfcaf2;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: 50vw;
+    padding: 100px 10px 10px 10px;
+    border-radius: 5px;
 }
