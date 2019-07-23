@@ -70,7 +70,9 @@ $("#rightOrWrongResults").on('submit', function(event) {
   event.preventDefault();
   if (STORE.currentQuestion === 9) {
     STORE.currentView = "resultsView";
+    displayFinalFeedback();
     manageView();
+
   } else {
     STORE.currentView = "questionView";
     manageView();
@@ -129,8 +131,36 @@ function handleCorrectAnswer() {
   let rightAnswer = responseCorrectFeedback();
   $('.rightOrWrong').html(rightAnswer);
 };
+function handleFinalFeedback() {
+  if (STORE.numberCorrect > 7) {
+    return `
+      <h2>Quiz Results</h2>
+      <p class="victoryParagraph">Congratulations! You got ${STORE.numberCorrect} out of 10 right. You know
+      a thing or three about Critical Role!</p>
+      <form id="quizResults">
+      <button type="button">Play again!</button> 
+      </form>;`
+  } else if (STORE.numberCorrect < 7 && STORE.numberCorrect > 3) {
+    return `
+      <h2>Quiz Results</h2>
+      <p class="victoryParagraph">You got ${STORE.numberCorrect} out of 10 right. Not bad! Keep watching; it
+      gets better and better!</p>
+      <form id="quizResults">
+      <button type="button">Play again!</button> 
+      </form>;`;
+  } else if (STORE.numberCorrect < 3) {
+    return `
+      <h2>Quiz Results</h2>
+      <p class="victoryParagraph">You got ${STORE.numberCorrect} out of 10 right. I get this funny feeling
+      you probably don't watch Critical Role. (You really should.)</p>
+      <form id="quizResults">
+      <button type="button">Play again!</button> 
+      </form>;`;
+  };
+};
 function displayFinalFeedback() {
-
+  let finalFeedback = handleFinalFeedback();
+  $('.finalResults').html(finalFeedback);
 }
 //functions to handle rendering from STORE for questions
 //Creates the template
