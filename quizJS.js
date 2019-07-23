@@ -114,7 +114,7 @@ function responseIncorrectFeedback() {
   return `
   <p class="incorrectAnswer">You did it wrong! You should have picked 
   ${QUESTIONS[STORE.currentQuestion - 1].answer}</p> 
-  <input type="submit" id="continue-button"></input>`;
+  <input type="submit" id="continue-button" value="Continue"></input>`;
 };
 function handleIncorrectAnswer() {
   let badAnswer = responseIncorrectFeedback();
@@ -125,7 +125,7 @@ function responseCorrectFeedback() {
   return `
   <p class="correctAnswer">That's correct! The answer is 
   ${QUESTIONS[STORE.currentQuestion - 1].answer}</p> 
-  <input type="submit" id="continue-button"></input>`
+  <input type="submit" id="continue-button" value="Continue"></input>`
 };
 function handleCorrectAnswer() {
   let rightAnswer = responseCorrectFeedback();
@@ -171,7 +171,7 @@ function generateQuizQuestionElement(item) {
       <input type="radio" name="questionChoice" value=1 required>${item.choices[1]}<br>
       <input type="radio" name="questionChoice" value=2 required>${item.choices[2]}<br>
       <input type="radio" name="questionChoice" value=3 required>${item.choices[3]}<br>
-      <input type="submit" id="quiz-submit-button"></input><br>
+      <input type="submit" id="quiz-submit-button" value="Roll the dice"></input><br>
       <p id="quiz-status">${STORE.currentQuestion} out of 10 answered.</p>
       <p id="quiz-totals">${STORE.numberCorrect} right, ${STORE.numberIncorrect} wrong<p>`
   }
