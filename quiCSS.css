@@ -9,39 +9,81 @@ body {
     background-image: url('https://homeschoolersanonymous.files.wordpress.com/2014/09/dungeons-dragons-dice-roller-6275.jpg?w=1200');
     background-repeat: no-repeat;
     background-size: cover;
-    margin-top: 20vh;
-    opacity: 0.8;
+    margin-top: 15vh;
+    opacity: 0.85;
+}
+div {
+    border: 1px solid black;
+}
+.incorrectAnswer, .correctAnswer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
 }
 h1 {
     font-family: 'Cinzel', serif;
-    font-size: 40px; 
+    font-size: 35px; 
 }
 header {
-    background-color: #ffeac9;
-    border: 1px solid black;
+    background-color: #fff2de;
     border-radius: 5px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     position: fixed;
     width: 45vw;
 }
+p {
+    font-family: 'Karla', sans-serif;
+}
+.correctAnswerImage {
+    height: 100px;
+    width: 100px;
+}
+.critRoleLogo {
+    padding-top: 10px;
+    width: 100px;
+    height: 124px;
+}
+.incorrectAnswerImage {
+    width: 80px;
+    height: 130px;
+}
+.info-page {
+    text-align: center;
+    font-size: 18px;
+}
 .quizBody {
-    background-color: #ffeac9;
-    border: 1px solid black;
+    background-color: #fff2de;
+    border: 0px;
     border-radius: 5px;
     display: flex;
     flex-direction: column;
     height: auto;
     width: 45vw;
-    padding: 100px 25px 25px 25px;
+    padding: 220px 25px 25px 25px;
 }
 .quizBody p {
     font-weight: bold;
     color: #000000;
+}  
+.rightOrWrong {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
-form {
-    font-weight: bold;
-    color: #000000;
-    opacity: 1;
+#quizQuestion {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+}  
+#rightOrWrongResults {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;  
 }

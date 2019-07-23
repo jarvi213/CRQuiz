@@ -122,6 +122,8 @@ function processAnswer() {
 //handles what to show for wrong answers
 function responseIncorrectFeedback(answer) {
   return `
+  <img class="incorrectAnswerImage" alt="a d20 die shows the number 1" 
+  src="https://d2a4hncphh3gxw.cloudfront.net/image/artwork/34403/69/7f/697fde6c37b6f7a086f1eeb6e1d6dde5_34403">
   <p class="incorrectAnswer">You did it wrong! You should have picked 
   ${QUESTIONS[STORE.currentQuestion - 1].choices[answer]}.</p> 
   <button id="continue-button">Continue</button>`;
@@ -133,6 +135,8 @@ function handleIncorrectAnswer(answer) {
 //handles what to show for right answers
 function responseCorrectFeedback(answer) {
   return `
+  <img class="correctAnswerImage" alt="a d20 die shows the number 20" 
+  src="http://cdn.shopify.com/s/files/1/0019/1182/products/sticker-d20_grande.png?v=1541445538">
   <p class="correctAnswer">That's correct!</p> 
   <button id="continue-button">Continue</button>`
 };
