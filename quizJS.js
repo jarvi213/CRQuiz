@@ -66,7 +66,7 @@ $("#quizQuestion").on('submit', function(event) {
   STORE.currentView = "feedbackView";
   manageView();
 });
-$("#rightOrWrongResults").on('submit', function(event) {
+$("#rightOrWrongResults").on('click', '#continue-button', function(event) {
   event.preventDefault();
   if (STORE.currentQuestion === 9) {
     STORE.currentView = "resultsView";
@@ -77,11 +77,21 @@ $("#rightOrWrongResults").on('submit', function(event) {
     STORE.currentView = "questionView";
     manageView();
   };
-});
-$("#quizResults").on('click', function(event) {
+});  
+$("#quizResults").on('submit', '#playAgain', function(event) {
+  event.preventDefault();
   STORE.currentView = "startView";
+  storeReset();
   manageView();
-});
+});  
+//resets all values on completion of the quiz
+function storeReset() {
+  STORE.currentQuestion = 0;
+  STORE.numberCorrect = 0;
+  STORE.numberIncorrect = 0;
+  STORE.currentView = "startView";
+  STORE.currentAnswer = "";
+};
 //updates which question is shown based on the state of STORE
 function justOneQuestion() {
   let shownQuestion = generateQuizQuestionElement(QUESTIONS[STORE.currentQuestion]);
@@ -104,58 +114,57 @@ function processAnswer() {
     handleCorrectAnswer();
     STORE.numberCorrect++;
   } else {
-    handleIncorrectAnswer();
+    handleIncorrectAnswer(rightAnswer);
     STORE.numberIncorrect++;
   };
 };
 //functions to handle what shows up on feedback pages
 //handles what to show for wrong answers
-function responseIncorrectFeedback() {
+function responseIncorrectFeedback(answer) {
   return `
   <p class="incorrectAnswer">You did it wrong! You should have picked 
-  ${QUESTIONS[STORE.currentQuestion - 1].answer}</p> 
-  <input type="submit" id="continue-button" value="Continue"></input>`;
+  ${QUESTIONS[STORE.currentQuestion - 1].choices[answer]}.</p> 
+  <button id="continue-button">Continue</button>`;
 };
-function handleIncorrectAnswer() {
-  let badAnswer = responseIncorrectFeedback();
-  $(".rightOrWrong").html(badAnswer);
+function handleIncorrectAnswer(answer) {
+  let badAnswer = responseIncorrectFeedback(answer);
+  $("#rightOrWrongResults").html(badAnswer);
 };
 //handles what to show for right answers
-function responseCorrectFeedback() {
+function responseCorrectFeedback(answer) {
   return `
-  <p class="correctAnswer">That's correct! The answer is 
-  ${QUESTIONS[STORE.currentQuestion - 1].answer}</p> 
-  <input type="submit" id="continue-button" value="Continue"></input>`
+  <p class="correctAnswer">That's correct!</p> 
+  <button id="continue-button">Continue</button>`
 };
-function handleCorrectAnswer() {
-  let rightAnswer = responseCorrectFeedback();
-  $('.rightOrWrong').html(rightAnswer);
+function handleCorrectAnswer(answer) {
+  let rightAnswer = responseCorrectFeedback(answer);
+  $('#rightOrWrongResults').html(rightAnswer);
 };
 function handleFinalFeedback() {
-  if (STORE.numberCorrect > 7) {
+  if (STORE.numberCorrect >= 7) {
     return `
       <h2>Quiz Results</h2>
-      <p class="victoryParagraph">Congratulations! You got ${STORE.numberCorrect} out of 10 right. You know
+      <p class="victoryParagraph">Congratulations! You got ${STORE.numberCorrect} out of 9 right. You know
       a thing or three about Critical Role!</p>
       <form id="quizResults">
-      <button type="button">Play again!</button> 
-      </form>;`
-  } else if (STORE.numberCorrect < 7 && STORE.numberCorrect > 3) {
+      <input type="submit" id="playAgain" value="Play again!"></input> 
+      </form>`;
+  } else if (STORE.numberCorrect <= 6 && STORE.numberCorrect > 3) {
     return `
       <h2>Quiz Results</h2>
-      <p class="victoryParagraph">You got ${STORE.numberCorrect} out of 10 right. Not bad! Keep watching; it
+      <p class="mehParagraph">You got ${STORE.numberCorrect} out of 9 right. Not bad! Keep watching; it
       gets better and better!</p>
       <form id="quizResults">
-      <button type="button">Play again!</button> 
-      </form>;`;
-  } else if (STORE.numberCorrect < 3) {
+      <input type="submit" id="playAgain" value="Play again!"></input>  
+      </form>`;
+  } else if (STORE.numberCorrect <= 3) {
     return `
       <h2>Quiz Results</h2>
-      <p class="victoryParagraph">You got ${STORE.numberCorrect} out of 10 right. I get this funny feeling
-      you probably don't watch Critical Role. (You really should.)</p>
+      <p class="criticalFailParagraph">You got ${STORE.numberCorrect} out of 9 right. I get this funny feeling
+      that you probably don't watch Critical Role. (You really should.)</p>
       <form id="quizResults">
-      <button type="button">Play again!</button> 
-      </form>;`;
+      <input type="submit" id="playAgain" value="Play again!"></input> 
+      </form>`;
   };
 };
 function displayFinalFeedback() {
@@ -172,7 +181,7 @@ function generateQuizQuestionElement(item) {
       <input type="radio" name="questionChoice" value=2 required>${item.choices[2]}<br>
       <input type="radio" name="questionChoice" value=3 required>${item.choices[3]}<br>
       <input type="submit" id="quiz-submit-button" value="Roll the dice"></input><br>
-      <p id="quiz-status">${STORE.currentQuestion} out of 10 answered.</p>
+      <p id="quiz-status">${STORE.currentQuestion} out of 9 answered.</p>
       <p id="quiz-totals">${STORE.numberCorrect} right, ${STORE.numberIncorrect} wrong<p>`
   }
 //grabs the info out of QUESTIONS
