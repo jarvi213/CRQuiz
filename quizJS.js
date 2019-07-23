@@ -66,7 +66,8 @@ $("#quizQuestion").on('submit', function(event) {
   STORE.currentView = "feedbackView";
   manageView();
 });
-$("#rightOrWrongResults").on('click', function(event) {
+$("#rightOrWrongResults").on('submit', function(event) {
+  event.preventDefault();
   if (STORE.currentQuestion === 9) {
     STORE.currentView = "resultsView";
     manageView();
@@ -98,15 +99,39 @@ function processAnswer() {
   let rightAnswer = QUESTIONS[STORE.currentQuestion - 1].answer;
   console.log(rightAnswer);
   if (rightAnswer == STORE.currentAnswer) {
+    handleCorrectAnswer();
     STORE.numberCorrect++;
-    $('.incorrectAnswer').hide();
   } else {
+    handleIncorrectAnswer();
     STORE.numberIncorrect++;
-    $('.correctAnswer').hide();
-    $('.incorrectAnswer').show();
   };
 };
+//functions to handle what shows up on feedback pages
+//handles what to show for wrong answers
+function responseIncorrectFeedback() {
+  return `
+  <p class="incorrectAnswer">You did it wrong! You should have picked 
+  ${QUESTIONS[STORE.currentQuestion - 1].answer}</p> 
+  <input type="submit" id="continue-button"></input>`;
+};
+function handleIncorrectAnswer() {
+  let badAnswer = responseIncorrectFeedback();
+  $(".rightOrWrong").html(badAnswer);
+};
+//handles what to show for right answers
+function responseCorrectFeedback() {
+  return `
+  <p class="correctAnswer">That's correct! The answer is 
+  ${QUESTIONS[STORE.currentQuestion - 1].answer}</p> 
+  <input type="submit" id="continue-button"></input>`
+};
+function handleCorrectAnswer() {
+  let rightAnswer = responseCorrectFeedback();
+  $('.rightOrWrong').html(rightAnswer);
+};
+function displayFinalFeedback() {
 
+}
 //functions to handle rendering from STORE for questions
 //Creates the template
 function generateQuizQuestionElement(item) {
