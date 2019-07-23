@@ -6,27 +6,42 @@ body {
     flex-direction: column;
     align-content: center;
     align-items: center;
+    background-image: url('https://homeschoolersanonymous.files.wordpress.com/2014/09/dungeons-dragons-dice-roller-6275.jpg?w=1200');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 20vh;
+    opacity: 0.8;
 }
-h2 {
-    border: 1px solid black;
-    background-color: #b4becf;
+h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 40px; 
 }
 header {
+    background-color: #ffeac9;
     border: 1px solid black;
-    background-color: #c1dbf7;
+    border-radius: 5px;
     display: flex;
     flex-direction: row;
     justify-content: center;
     position: fixed;
-    width: 100vw;
+    width: 45vw;
 }
 .quizBody {
+    background-color: #ffeac9;
     border: 1px solid black;
-    background-color: #bfcaf2;
+    border-radius: 5px;
     display: flex;
     flex-direction: column;
     height: auto;
-    width: 50vw;
-    padding: 100px 10px 10px 10px;
-    border-radius: 5px;
+    width: 45vw;
+    padding: 100px 25px 25px 25px;
+}
+.quizBody p {
+    font-weight: bold;
+    color: #000000;
+}
+form {
+    font-weight: bold;
+    color: #000000;
+    opacity: 1;
 }
