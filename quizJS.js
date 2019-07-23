@@ -124,7 +124,7 @@ function responseIncorrectFeedback(answer) {
   return `
   <img class="incorrectAnswerImage" alt="a d20 die shows the number 1" 
   src="https://d2a4hncphh3gxw.cloudfront.net/image/artwork/34403/69/7f/697fde6c37b6f7a086f1eeb6e1d6dde5_34403">
-  <p class="incorrectAnswer">You did it wrong! You should have picked 
+  <p class="incorrectAnswer">Incorrect! You should have picked 
   ${QUESTIONS[STORE.currentQuestion - 1].choices[answer]}.</p> 
   <button id="continue-button">Continue</button>`;
 };
@@ -185,8 +185,9 @@ function generateQuizQuestionElement(item) {
       <input type="radio" name="questionChoice" value=2 required>${item.choices[2]}<br>
       <input type="radio" name="questionChoice" value=3 required>${item.choices[3]}<br>
       <input type="submit" id="quiz-submit-button" value="Roll the dice"></input><br>
-      <p id="quiz-status">${STORE.currentQuestion} out of 9 answered.</p>
-      <p id="quiz-totals">${STORE.numberCorrect} right, ${STORE.numberIncorrect} wrong<p>`
+      <footer class="quizStats">
+      <p id="quiz-status">${STORE.currentQuestion} out of 9 answered // ${STORE.numberCorrect} right, ${STORE.numberIncorrect} wrong</p>
+      </footer>`
   }
 //grabs the info out of QUESTIONS
 function generateQuizQuestions(questions) {
